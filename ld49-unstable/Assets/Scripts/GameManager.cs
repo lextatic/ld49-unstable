@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private HeightAndAmmo[] AllBonuses;
 	[SerializeField]
-	private GameObject _bonusHeightBarPrefab;
+	private BonusHeightBar _bonusHeightBarPrefab;
 
 	private int _bonusIndex;
 
@@ -49,7 +49,9 @@ public class GameManager : MonoBehaviour
 
 		for (int i = 0; i < AllBonuses.Length; i++)
 		{
-			AllBonuses[i].HeightAndAmmoLine = Instantiate(_bonusHeightBarPrefab, new Vector3(0, AllBonuses[i].Height, 0), Quaternion.identity);
+			var newBar = Instantiate(_bonusHeightBarPrefab, new Vector3(0, AllBonuses[i].Height, 0), Quaternion.identity);
+			newBar.SetAmmoText(AllBonuses[i].Ammo);
+			AllBonuses[i].HeightAndAmmoLine = newBar.gameObject;
 		}
 
 		_victoryHeightBar.transform.position = new Vector3(0, _victoryHeight, 0);

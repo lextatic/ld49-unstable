@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class NodeCreator : MonoBehaviour
@@ -22,6 +23,8 @@ public class NodeCreator : MonoBehaviour
 	private LineRenderer _rod1;
 	[SerializeField]
 	private LineRenderer _rod2;
+	[SerializeField]
+	private TextMeshProUGUI _ammoLabel;
 
 	private int _ammunition = 0;
 
@@ -94,6 +97,8 @@ public class NodeCreator : MonoBehaviour
 				OnNodeCreated?.Invoke(node);
 			}
 		}
+
+		_ammoLabel.text = _ammunition.ToString();
 	}
 
 	public void AddAmmo(int ammoToAdd)
