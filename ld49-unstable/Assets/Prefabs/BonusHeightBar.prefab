@@ -180,7 +180,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7820230594153494178}
   - component: {fileID: 1926021049066125997}
-  - component: {fileID: 4018093131955746598}
   - component: {fileID: 392420936104775356}
   m_Layer: 0
   m_Name: BonusHeightBar
@@ -260,14 +259,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!222 &4018093131955746598
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9094101707706843475}
-  m_CullTransparentMesh: 1
 --- !u!114 &392420936104775356
 MonoBehaviour:
   m_ObjectHideFlags: 0

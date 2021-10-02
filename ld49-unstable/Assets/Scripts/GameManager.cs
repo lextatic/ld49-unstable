@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private float _breakThresholdCooldown = 1f;
 	[SerializeField]
-	private Transform _heightBar;
+	private HeightBar _currentHeightBar;
 	[SerializeField]
-	private Transform _victoryHeightBar;
+	private HeightBar _victoryHeightBar;
 	[SerializeField]
 	private float _victoryHeight;
 	[SerializeField]
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private HeightAndAmmo[] AllBonuses;
 	[SerializeField]
-	private BonusHeightBar _bonusHeightBarPrefab;
+	private HeightBar _bonusHeightBarPrefab;
 
 	private int _bonusIndex;
 
@@ -50,11 +50,12 @@ public class GameManager : MonoBehaviour
 		for (int i = 0; i < AllBonuses.Length; i++)
 		{
 			var newBar = Instantiate(_bonusHeightBarPrefab, new Vector3(0, AllBonuses[i].Height, 0), Quaternion.identity);
-			newBar.SetAmmoText(AllBonuses[i].Ammo);
+			newBar.SetText($"+{AllBonuses[i].Ammo}");
 			AllBonuses[i].HeightAndAmmoLine = newBar.gameObject;
 		}
 
 		_victoryHeightBar.transform.position = new Vector3(0, _victoryHeight, 0);
+		_victoryHeightBar.SetText("Victory!");
 	}
 
 	private void Start()
@@ -109,7 +110,9 @@ public class GameManager : MonoBehaviour
 			{
 				_maxHeightAchieved = node.transform.position.y;
 
-				_heightBar.position = new Vector3(0, _maxHeightAchieved, 0);
+				_currentHeightBar.transform.position = new Vector3(0, _maxHeightAchieved, 0);
+
+				_currentHeightBar.SetText($"{_maxHeightAchieved}");
 			}
 		}
 
