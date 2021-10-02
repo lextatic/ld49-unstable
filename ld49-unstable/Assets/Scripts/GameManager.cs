@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
 	private HeightAndAmmo[] AllBonuses;
 	[SerializeField]
 	private HeightBar _bonusHeightBarPrefab;
+	[SerializeField]
+	private GameObject _gameOverPanel;
 
 	private int _bonusIndex;
 
@@ -50,6 +53,7 @@ public class GameManager : MonoBehaviour
 	{
 		_nodeCreator = GetComponent<NodeCreator>();
 		_nodeCreator.OnNodeCreated += OnNodeCreated;
+		_nodeCreator.OnOutOfAmmo += OnOutOfAmmo;
 
 		for (int i = 0; i < AllBonuses.Length; i++)
 		{
@@ -82,6 +86,11 @@ public class GameManager : MonoBehaviour
 		_allNodesList.Add(newNode);
 	}
 
+	private void OnOutOfAmmo()
+	{
+		_gameOverPanel.SetActive(true);
+	}
+
 	private void OnNodeDestroyed(Node nodeDestroyed)
 	{
 		_allNodesList.Remove(nodeDestroyed);
@@ -93,9 +102,17 @@ public class GameManager : MonoBehaviour
 
 		if (_breakThreshold > _maxBreakThreshold)
 		{
-			Time.timeScale = 0.5f;
-			Debug.Log("Derrota mermão");
+			Time.timeScale = 0.2f;
+			StartCoroutine(GameOver());
+
 		}
+	}
+
+	private IEnumerator GameOver()
+	{
+		yield return new WaitForSecondsRealtime(2f);
+		_gameOverPanel.SetActive(true);
+		Time.timeScale = 1f;
 	}
 
 	void Update()

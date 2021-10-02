@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class NodeCreator : MonoBehaviour
 {
 	public Action<Node> OnNodeCreated;
+
+	public Action OnOutOfAmmo;
 
 	private List<Transform> _nodesList = new List<Transform>();
 
@@ -95,10 +98,24 @@ public class NodeCreator : MonoBehaviour
 				_nodesList.Add(nodeObject);
 
 				OnNodeCreated?.Invoke(node);
+				if (_ammunition <= 0)
+				{
+					StartCoroutine(CheckGameOver());
+				}
+
+				_ammoLabel.text = _ammunition.ToString();
 			}
 		}
+	}
 
-		_ammoLabel.text = _ammunition.ToString();
+	private IEnumerator CheckGameOver()
+	{
+		yield return new WaitForSecondsRealtime(2f);
+
+		if (_ammunition <= 0)
+		{
+			OnOutOfAmmo?.Invoke();
+		}
 	}
 
 	public void AddAmmo(int ammoToAdd)
