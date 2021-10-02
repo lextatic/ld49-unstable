@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public struct HeightAndAmmo
@@ -18,6 +19,10 @@ public class GameManager : MonoBehaviour
 	private float _breakThresholdCooldown = 1f;
 	[SerializeField]
 	private Transform _heightBar;
+	[SerializeField]
+	private Transform _victoryHeightBar;
+	[SerializeField]
+	private float _victoryHeight;
 	[SerializeField]
 	private int _initialAmmo = 10;
 	[SerializeField]
@@ -46,6 +51,8 @@ public class GameManager : MonoBehaviour
 		{
 			AllBonuses[i].HeightAndAmmoLine = Instantiate(_bonusHeightBarPrefab, new Vector3(0, AllBonuses[i].Height, 0), Quaternion.identity);
 		}
+
+		_victoryHeightBar.transform.position = new Vector3(0, _victoryHeight, 0);
 	}
 
 	private void Start()
@@ -82,6 +89,11 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			SceneManager.LoadScene(0);
+		}
+
 		_breakThreshold = Mathf.Max(_breakThreshold - (_breakThresholdCooldown * Time.deltaTime), 0);
 
 		if (_breakThreshold > 0)
@@ -113,6 +125,11 @@ public class GameManager : MonoBehaviour
 			{
 				_bonusIndex = -1;
 			}
+		}
+
+		if (_maxHeightAchieved > _victoryHeight)
+		{
+			Debug.Log("Victoly!");
 		}
 	}
 }
