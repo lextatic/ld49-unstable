@@ -105,10 +105,10 @@ public class Node : MonoBehaviour
 		{
 			rod.SetPosition(1, transform.InverseTransformDirection(joint.connectedBody.transform.position - transform.position));
 
-			var forceProportion = joint.reactionForce.magnitude / joint.breakForce;
+			var inverseForceProportion = 1 - (joint.reactionForce.magnitude / joint.breakForce);
 
-			rod.startColor = new Color(1, 1 - forceProportion, 1 - forceProportion);
-			rod.endColor = new Color(1, 1 - forceProportion, 1 - forceProportion);
+			rod.startColor = new Color(1, inverseForceProportion, inverseForceProportion);
+			rod.endColor = new Color(1, inverseForceProportion, inverseForceProportion);
 		}
 	}
 
