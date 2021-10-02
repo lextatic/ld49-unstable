@@ -15,17 +15,17 @@ public class Node : MonoBehaviour
 	{
 		var allNodes = FindObjectsOfType<Node>();
 
-		(Rigidbody2D body, float closestDistance) ClosestNode1 = (null, Mathf.Infinity);
-		(Rigidbody2D body, float closestDistance) ClosestNode2 = (null, Mathf.Infinity);
+		(Rigidbody2D body, float distance) ClosestNode1 = (null, Mathf.Infinity);
+		(Rigidbody2D body, float distance) ClosestNode2 = (null, Mathf.Infinity);
 
 		foreach (Node node in allNodes)
 		{
 			if (node == this) continue;
 
 			var distance = Vector3.Distance(this.transform.position, node.transform.position);
-			if (distance < ClosestNode1.closestDistance)
+			if (distance < ClosestNode1.distance)
 			{
-				if (ClosestNode1.closestDistance < ClosestNode2.closestDistance)
+				if (ClosestNode1.distance < ClosestNode2.distance)
 				{
 					UpdateClosestBodyAndDistance(ref ClosestNode2, distance, node);
 				}
@@ -34,14 +34,14 @@ public class Node : MonoBehaviour
 					UpdateClosestBodyAndDistance(ref ClosestNode1, distance, node);
 				}
 			}
-			else if (distance < ClosestNode2.closestDistance)
+			else if (distance < ClosestNode2.distance)
 			{
 				UpdateClosestBodyAndDistance(ref ClosestNode2, distance, node);
 			}
 		}
 
-		ConnectOrDisableJoint(_joint1, ClosestNode1.body, ClosestNode1.closestDistance);
-		ConnectOrDisableJoint(_joint2, ClosestNode2.body, ClosestNode2.closestDistance);
+		ConnectOrDisableJoint(_joint1, ClosestNode1.body, ClosestNode1.distance);
+		ConnectOrDisableJoint(_joint2, ClosestNode2.body, ClosestNode2.distance);
 	}
 
 	private void ConnectOrDisableJoint(FixedJoint2D joint, Rigidbody2D body, float closestDistance)
@@ -53,14 +53,14 @@ public class Node : MonoBehaviour
 		}
 	}
 
-	private void UpdateClosestBodyAndDistance(ref (Rigidbody2D body, float closestDistance) ClosestNode1, float distance, Node node)
+	private void UpdateClosestBodyAndDistance(ref (Rigidbody2D body, float distance) ClosestNode, float distance, Node node)
 	{
-		ClosestNode1.closestDistance = distance;
-		ClosestNode1.body = node.GetComponent<Rigidbody2D>();
+		ClosestNode.distance = distance;
+		ClosestNode.body = node.GetComponent<Rigidbody2D>();
 	}
 
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
 	{
 		if (_joint1 != null)
 		{
@@ -69,10 +69,10 @@ public class Node : MonoBehaviour
 				_highestForce = _joint1.reactionForce.magnitude;
 			}
 
-			if (_joint1.reactionTorque > _highestTorque)
-			{
-				_highestTorque = _joint1.reactionTorque;
-			}
+			//if (_joint1.reactionTorque > _highestTorque)
+			//{
+			//	_highestTorque = _joint1.reactionTorque;
+			//}
 		}
 
 		if (_joint2 != null)
@@ -82,27 +82,32 @@ public class Node : MonoBehaviour
 				_highestForce = _joint2.reactionForce.magnitude;
 			}
 
-			if (_joint2.reactionTorque > _highestTorque)
-			{
-				_highestTorque = _joint2.reactionTorque;
-			}
+			//if (_joint2.reactionTorque > _highestTorque)
+			//{
+			//	_highestTorque = _joint2.reactionTorque;
+			//}
 		}
 
 		Debug.Log($"reactionForce: {_highestForce}");
-		Debug.Log($"reactionTorque: {_highestTorque}");
+		//Debug.Log($"GetReactionForce: {_joi}");
+		//Debug.Log($"reactionTorque: {_highestTorque}");
 	}
 
 	void OnDrawGizmos()
 	{
 		if (_joint1 != null && _joint1.connectedBody != null)
 		{
-			Gizmos.color = Color.red;
+			Gizmos.color = new Color((_joint1.reactionForce.magnitude / _joint1.breakForce), 0, 0);
+
+			//Gizmos.color = Color.blue;
 			Gizmos.DrawLine(transform.position, _joint1.connectedBody.transform.position);
 		}
 
 		if (_joint2 != null && _joint2.connectedBody != null)
 		{
-			Gizmos.color = Color.cyan;
+			Gizmos.color = new Color((_joint2.reactionForce.magnitude / _joint2.breakForce), 0, 0);
+
+			//Gizmos.color = Color.cyan;
 			Gizmos.DrawLine(transform.position, _joint2.connectedBody.transform.position);
 		}
 	}
