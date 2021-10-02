@@ -53,9 +53,17 @@ public class NodeCreator : MonoBehaviour
 
 			if ((ClosestNode1.node != null && ClosestNode2.node != null) || _nodesList.Count < 2)
 			{
-				_nodesList.Add(Instantiate(_nodePrefab, point, Quaternion.identity).transform);
+				var node = Instantiate(_nodePrefab, point, Quaternion.identity).transform;
+				node.GetComponent<Node>().OnNodeDestroyed += NodeDestroyed;
+				_nodesList.Add(node);
 			}
 		}
+	}
+
+	private void NodeDestroyed(Node nodeDestroyed)
+	{
+		nodeDestroyed.OnNodeDestroyed -= NodeDestroyed;
+		_nodesList.Remove(nodeDestroyed.transform);
 	}
 
 	private void OnDrawGizmos()

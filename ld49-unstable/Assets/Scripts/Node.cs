@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Node : MonoBehaviour
@@ -7,8 +8,15 @@ public class Node : MonoBehaviour
 	[SerializeField]
 	private FixedJoint2D _joint2;
 
+	[SerializeField]
+	private LineRenderer _rod1;
+	[SerializeField]
+	private LineRenderer _rod2;
+
 	private static float _highestForce;
 	private static float _highestTorque;
+
+	public Action<Node> OnNodeDestroyed;
 
 	// Start is called before the first frame update
 	void Start()
@@ -40,16 +48,20 @@ public class Node : MonoBehaviour
 			}
 		}
 
-		ConnectOrDisableJoint(_joint1, ClosestNode1.body, ClosestNode1.distance);
-		ConnectOrDisableJoint(_joint2, ClosestNode2.body, ClosestNode2.distance);
+		ConnectJoint(_joint1, ClosestNode1.body, ClosestNode1.distance, _rod1);
+		ConnectJoint(_joint2, ClosestNode2.body, ClosestNode2.distance, _rod2);
 	}
 
-	private void ConnectOrDisableJoint(FixedJoint2D joint, Rigidbody2D body, float closestDistance)
+	private void ConnectJoint(FixedJoint2D joint, Rigidbody2D body, float closestDistance, LineRenderer rod)
 	{
 		if (closestDistance != Mathf.Infinity)
 		{
 			joint.connectedBody = body;
 			joint.enabled = true;
+			rod.enabled = true;
+
+			//var connectedNode = body.GetComponent<Node>();
+			//connectedNode.OnNodeDestroyed += OnConnectedNodeDestroyed;
 		}
 	}
 
@@ -68,11 +80,6 @@ public class Node : MonoBehaviour
 			{
 				_highestForce = _joint1.reactionForce.magnitude;
 			}
-
-			//if (_joint1.reactionTorque > _highestTorque)
-			//{
-			//	_highestTorque = _joint1.reactionTorque;
-			//}
 		}
 
 		if (_joint2 != null)
@@ -81,34 +88,78 @@ public class Node : MonoBehaviour
 			{
 				_highestForce = _joint2.reactionForce.magnitude;
 			}
-
-			//if (_joint2.reactionTorque > _highestTorque)
-			//{
-			//	_highestTorque = _joint2.reactionTorque;
-			//}
 		}
 
 		Debug.Log($"reactionForce: {_highestForce}");
-		//Debug.Log($"GetReactionForce: {_joi}");
-		//Debug.Log($"reactionTorque: {_highestTorque}");
 	}
 
-	void OnDrawGizmos()
+	void Update()
 	{
-		if (_joint1 != null && _joint1.connectedBody != null)
+		UpdateRod(_joint1, _rod1);
+		UpdateRod(_joint2, _rod2);
+	}
+
+	private void UpdateRod(FixedJoint2D joint, LineRenderer rod)
+	{
+		if (joint != null && joint.connectedBody != null)
 		{
-			Gizmos.color = new Color((_joint1.reactionForce.magnitude / _joint1.breakForce), 0, 0);
+			rod.SetPosition(1, transform.InverseTransformDirection(joint.connectedBody.transform.position - transform.position));
 
-			//Gizmos.color = Color.blue;
-			Gizmos.DrawLine(transform.position, _joint1.connectedBody.transform.position);
-		}
+			var forceProportion = joint.reactionForce.magnitude / joint.breakForce;
 
-		if (_joint2 != null && _joint2.connectedBody != null)
-		{
-			Gizmos.color = new Color((_joint2.reactionForce.magnitude / _joint2.breakForce), 0, 0);
-
-			//Gizmos.color = Color.cyan;
-			Gizmos.DrawLine(transform.position, _joint2.connectedBody.transform.position);
+			rod.startColor = new Color(1, 1 - forceProportion, 1 - forceProportion);
+			rod.endColor = new Color(1, 1 - forceProportion, 1 - forceProportion);
 		}
 	}
+
+	private void OnJointBreak2D(Joint2D joint)
+	{
+		if (joint == _joint1)
+		{
+			_rod1.enabled = false;
+
+			if (_joint2 == null)
+			{
+				OnNodeDestroyed?.Invoke(this);
+				Destroy(gameObject);
+			}
+		}
+		else
+		{
+			_rod2.enabled = false;
+
+			if (_joint1 == null)
+			{
+				OnNodeDestroyed?.Invoke(this);
+				Destroy(gameObject);
+			}
+		}
+	}
+
+	//private void OnConnectedNodeDestroyed(Node connectedNode)
+	//{
+	//	if (_joint2 == null)
+	//	{
+	//		if (_rod1 != null)
+	//		{
+	//			_rod1.enabled = false;
+	//		}
+
+	//		OnNodeDestroyed?.Invoke(this);
+	//		Destroy(gameObject);
+	//	}
+	//	else
+	//	{
+	//		if (_rod2 != null)
+	//		{
+	//			_rod2.enabled = false;
+	//		}
+
+	//		if (_joint1 == null)
+	//		{
+	//			OnNodeDestroyed?.Invoke(this);
+	//			Destroy(gameObject);
+	//		}
+	//	}
+	//}
 }
