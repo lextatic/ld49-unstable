@@ -13,14 +13,21 @@ public class Node : MonoBehaviour
 	[SerializeField]
 	private LineRenderer _rod2;
 
+	[SerializeField]
+	private bool _starterNodes = false;
+
 	private static float _highestForce;
 	private static float _highestTorque;
 
 	public Action<Node> OnNodeDestroyed;
 
+	public Action OnJointBrake;
+
 	// Start is called before the first frame update
 	void Start()
 	{
+		if (_starterNodes) return;
+
 		var allNodes = FindObjectsOfType<Node>();
 
 		(Rigidbody2D body, float distance) ClosestNode1 = (null, Mathf.Infinity);
@@ -72,26 +79,26 @@ public class Node : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void FixedUpdate()
-	{
-		if (_joint1 != null)
-		{
-			if (_joint1.reactionForce.magnitude > _highestForce)
-			{
-				_highestForce = _joint1.reactionForce.magnitude;
-			}
-		}
+	//void FixedUpdate()
+	//{
+	//	if (_joint1 != null)
+	//	{
+	//		if (_joint1.reactionForce.magnitude > _highestForce)
+	//		{
+	//			_highestForce = _joint1.reactionForce.magnitude;
+	//		}
+	//	}
 
-		if (_joint2 != null)
-		{
-			if (_joint2.reactionForce.magnitude > _highestForce)
-			{
-				_highestForce = _joint2.reactionForce.magnitude;
-			}
-		}
+	//	if (_joint2 != null)
+	//	{
+	//		if (_joint2.reactionForce.magnitude > _highestForce)
+	//		{
+	//			_highestForce = _joint2.reactionForce.magnitude;
+	//		}
+	//	}
 
-		Debug.Log($"reactionForce: {_highestForce}");
-	}
+	//	Debug.Log($"reactionForce: {_highestForce}");
+	//}
 
 	void Update()
 	{
@@ -114,6 +121,8 @@ public class Node : MonoBehaviour
 
 	private void OnJointBreak2D(Joint2D joint)
 	{
+		OnJointBrake?.Invoke();
+
 		if (joint == _joint1)
 		{
 			_rod1.enabled = false;
