@@ -1584,14 +1584,23 @@ MonoBehaviour:
   _breakThresholdCooldown: 2
   _currentHeightBar: {fileID: 210535826}
   _victoryHeightBar: {fileID: 1624934534}
-  _victoryHeight: 20
-  _initialAmmo: 50
+  _victoryHeight: 100
+  _initialAmmo: 20
   AllBonuses:
-  - Height: 5
-    Ammo: 5
-    HeightAndAmmoLine: {fileID: 0}
   - Height: 10
-    Ammo: 5
+    Ammo: 20
+    HeightAndAmmoLine: {fileID: 0}
+  - Height: 30
+    Ammo: 25
+    HeightAndAmmoLine: {fileID: 0}
+  - Height: 50
+    Ammo: 50
+    HeightAndAmmoLine: {fileID: 0}
+  - Height: 70
+    Ammo: 60
+    HeightAndAmmoLine: {fileID: 0}
+  - Height: 90
+    Ammo: 70
     HeightAndAmmoLine: {fileID: 0}
   _bonusHeightBarPrefab: {fileID: 392420936104775356, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
 --- !u!114 &2101248685
