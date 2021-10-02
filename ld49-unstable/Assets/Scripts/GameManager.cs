@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private HeightBar _victoryHeightBar;
 	[SerializeField]
+	private HeightBar _hightScoreBar;
+	[SerializeField]
 	private float _victoryHeight;
 	[SerializeField]
 	private int _initialAmmo = 10;
@@ -42,6 +44,8 @@ public class GameManager : MonoBehaviour
 
 	private List<Node> _allNodesList = new List<Node>();
 
+	private float _highScore;
+
 	void Awake()
 	{
 		_nodeCreator = GetComponent<NodeCreator>();
@@ -56,6 +60,10 @@ public class GameManager : MonoBehaviour
 
 		_victoryHeightBar.transform.position = new Vector3(0, _victoryHeight, 0);
 		_victoryHeightBar.SetText("Victory!");
+
+		_highScore = PlayerPrefs.GetFloat("highScore", 0);
+		_hightScoreBar.transform.position = new Vector3(0, _highScore, 0);
+		_hightScoreBar.SetText($"High Score: {_highScore:0.##}");
 	}
 
 	private void Start()
@@ -112,7 +120,15 @@ public class GameManager : MonoBehaviour
 
 				_currentHeightBar.transform.position = new Vector3(0, _maxHeightAchieved, 0);
 
-				_currentHeightBar.SetText($"{_maxHeightAchieved}");
+				_currentHeightBar.SetText($"{_maxHeightAchieved:0.##}");
+
+				if (_maxHeightAchieved > _highScore)
+				{
+					_highScore = _maxHeightAchieved;
+					PlayerPrefs.SetFloat("highScore", _highScore);
+					_hightScoreBar.transform.position = new Vector3(0, _highScore, 0);
+					_hightScoreBar.SetText($"High Score: {_highScore:0.##}");
+				}
 			}
 		}
 
