@@ -1942,6 +1942,7 @@ MonoBehaviour:
   _pointer: {fileID: 809605915}
   _rod1: {fileID: 1977595446}
   _rod2: {fileID: 1863212990}
+  _cursorDistanceFade: 6
   _ammoLabel: {fileID: 1199083141}
 --- !u!4 &2101248686
 Transform:

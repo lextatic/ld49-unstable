@@ -27,6 +27,8 @@ public class NodeCreator : MonoBehaviour
 	[SerializeField]
 	private LineRenderer _rod2;
 	[SerializeField]
+	private float _cursorDistanceFade;
+	[SerializeField]
 	private TextMeshProUGUI _ammoLabel;
 
 	private int _ammunition = 0;
@@ -42,6 +44,13 @@ public class NodeCreator : MonoBehaviour
 
 			OnNodeCreated?.Invoke(node);
 		}
+
+
+	}
+
+	private void OnApplicationFocus(bool focus)
+	{
+		Cursor.visible = false;
 	}
 
 	void Update()
@@ -74,8 +83,16 @@ public class NodeCreator : MonoBehaviour
 
 		_pointer.transform.position = point;
 
-		UpdateRod(_rod1, ClosestNode1.node, ClosestNode1.distance);
-		UpdateRod(_rod2, ClosestNode2.node, ClosestNode2.distance);
+		var pointerAlpha = 0.5f;
+
+		if ((ClosestNode1.distance + ClosestNode2.distance) / 2 > _cursorDistanceFade)
+		{
+			pointerAlpha = Mathf.Max(0.5f - (((ClosestNode1.distance + ClosestNode2.distance) / 2) - _cursorDistanceFade) / (_cursorDistanceFade * 0.5f) * 0.5f, 0f);
+
+		}
+
+		UpdateRod(_rod1, ClosestNode1.node, ClosestNode1.distance, pointerAlpha);
+		UpdateRod(_rod2, ClosestNode2.node, ClosestNode2.distance, pointerAlpha);
 
 		var gbColorComponent = (ClosestNode1.distance > _maxConnectionDistance || ClosestNode1.distance < _minConnectionDistance ||
 			ClosestNode2.distance > _maxConnectionDistance || ClosestNode2.distance < _minConnectionDistance) ? 0 : 1;
@@ -123,7 +140,7 @@ public class NodeCreator : MonoBehaviour
 		_ammunition += ammoToAdd;
 	}
 
-	private void UpdateRod(LineRenderer rod, Transform joint, float distance)
+	private void UpdateRod(LineRenderer rod, Transform joint, float distance, float alpha)
 	{
 		if (joint != null)
 		{
@@ -133,8 +150,8 @@ public class NodeCreator : MonoBehaviour
 
 			var gbColorComponent = (distance > _maxConnectionDistance || distance < _minConnectionDistance) ? 0 : 1;
 
-			rod.startColor = new Color(1, gbColorComponent, gbColorComponent, 0.5f);
-			rod.endColor = new Color(1, gbColorComponent, gbColorComponent, 0.5f);
+			rod.startColor = new Color(1, gbColorComponent, gbColorComponent, alpha);
+			rod.endColor = new Color(1, gbColorComponent, gbColorComponent, alpha);
 		}
 	}
 
