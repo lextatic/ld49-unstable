@@ -38,6 +38,10 @@ public class GameManager : MonoBehaviour
 	private GameObject _gameOverPanel;
 	[SerializeField]
 	private Image _fadePanel;
+	[SerializeField]
+	private SimpleAudioEvent _bonusPiecesSound;
+	[SerializeField]
+	private SimpleAudioEvent _victorySound;
 
 	private int _bonusIndex;
 
@@ -53,11 +57,15 @@ public class GameManager : MonoBehaviour
 
 	private bool _victoryAchieved;
 
+	private AudioSource _audioSource;
+
 	void Awake()
 	{
 		_nodeCreator = GetComponent<NodeCreator>();
 		_nodeCreator.OnNodeCreated += OnNodeCreated;
 		_nodeCreator.OnOutOfAmmo += OnOutOfAmmo;
+
+		_audioSource = GetComponent<AudioSource>();
 
 		for (int i = 0; i < AllBonuses.Length; i++)
 		{
@@ -176,11 +184,14 @@ public class GameManager : MonoBehaviour
 			{
 				_bonusIndex = -1;
 			}
+
+			_bonusPiecesSound.Play(_audioSource);
 		}
 
 		if (!_victoryAchieved && _maxHeightAchieved > _victoryHeight)
 		{
 			_victoryAchieved = true;
+			_victorySound.Play(_audioSource);
 			//Debug.Log("Victoly!");
 		}
 	}

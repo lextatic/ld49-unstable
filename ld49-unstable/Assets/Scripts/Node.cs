@@ -22,8 +22,18 @@ public class Node : MonoBehaviour
 	[SerializeField]
 	private Sprite[] _spriteVariations;
 
+	[SerializeField]
+	private SimpleAudioEvent _joinBreakSound;
+
+	[SerializeField]
+	private SimpleAudioEvent _collisionSound;
+
 	private static float _highestForce;
 	private static float _highestTorque;
+
+	private float _collisionSoundCooldown;
+
+	private AudioSource _audioSource;
 
 	public Action<Node> OnNodeDestroyed;
 
@@ -35,6 +45,8 @@ public class Node : MonoBehaviour
 		_nodeSprite.sprite = _spriteVariations[UnityEngine.Random.Range(0, _spriteVariations.Length)];
 		_nodeSprite.flipX = UnityEngine.Random.Range(0, 2) == 0;
 		_nodeSprite.flipY = UnityEngine.Random.Range(0, 2) == 0;
+
+		_audioSource = GetComponent<AudioSource>();
 
 		if (_starterNodes) return;
 
@@ -133,6 +145,8 @@ public class Node : MonoBehaviour
 	{
 		OnJointBrake?.Invoke();
 
+		_joinBreakSound.Play(_audioSource);
+
 		if (joint == _joint1)
 		{
 			_rod1.enabled = false;
@@ -152,6 +166,15 @@ public class Node : MonoBehaviour
 				OnNodeDestroyed?.Invoke(this);
 				Destroy(gameObject);
 			}
+		}
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (Time.time - _collisionSoundCooldown > 5f)
+		{
+			_collisionSound.Play(_audioSource);
+			_collisionSoundCooldown = Time.time;
 		}
 	}
 

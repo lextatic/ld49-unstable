@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a88cfed6ef75b54f89d97f21f506055, type: 3}
+  m_Name: JointBreak
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 9786e33c478c4cc4382787b71406b917, type: 3}
+  - {fileID: 8300000, guid: 605c32a5c6f9e3846897eb3a52f86ce3, type: 3}
+  - {fileID: 8300000, guid: 363444f98ed491b4187db0dfb286c06e, type: 3}
+  - {fileID: 8300000, guid: 00e5602b41c3e334ca15aff2b19af8af, type: 3}
+  volume:
+    minValue: 1
+    maxValue: 1
+  pitch:
+    minValue: 0.9
+    maxValue: 1.1

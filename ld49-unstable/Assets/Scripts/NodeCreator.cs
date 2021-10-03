@@ -30,6 +30,8 @@ public class NodeCreator : MonoBehaviour
 	private float _cursorDistanceFade;
 	[SerializeField]
 	private TextMeshProUGUI _ammoLabel;
+	[SerializeField]
+	private SimpleAudioEvent _newPieceSound;
 
 	private int _ammunition = 0;
 
@@ -119,6 +121,8 @@ public class NodeCreator : MonoBehaviour
 				}
 
 				_ammoLabel.text = _ammunition.ToString();
+
+				_newPieceSound.Play(node.GetComponent<AudioSource>());
 			}
 		}
 	}
