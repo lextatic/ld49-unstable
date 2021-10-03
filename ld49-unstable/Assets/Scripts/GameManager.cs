@@ -128,15 +128,15 @@ public class GameManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.R))
 		{
-			SceneManager.LoadScene(0);
+			SceneManager.LoadScene(1);
 		}
 
 		_breakThreshold = Mathf.Max(_breakThreshold - (_breakThresholdCooldown * Time.deltaTime), 0);
 
-		if (_breakThreshold > 0)
-		{
-			Debug.Log($"BreakThreshold: {_breakThreshold}\nBreakCount: {_breakCounts}");
-		}
+		//if (_breakThreshold > 0)
+		//{
+		//	Debug.Log($"BreakThreshold: {_breakThreshold}\nBreakCount: {_breakCounts}");
+		//}
 
 		foreach (Node node in _allNodesList)
 		{
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
 		if (!_victoryAchieved && _maxHeightAchieved > _victoryHeight)
 		{
 			_victoryAchieved = true;
-			Debug.Log("Victoly!");
+			//Debug.Log("Victoly!");
 		}
 	}
 }
