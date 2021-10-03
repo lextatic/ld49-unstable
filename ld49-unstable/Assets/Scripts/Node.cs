@@ -100,6 +100,12 @@ public class Node : MonoBehaviour
 		ClosestNode.body = node.GetComponent<Rigidbody2D>();
 	}
 
+	public void SetBreakForce(float breakForce)
+	{
+		_joint1.breakForce = breakForce;
+		_joint2.breakForce = breakForce;
+	}
+
 	// Update is called once per frame
 	//void FixedUpdate()
 	//{

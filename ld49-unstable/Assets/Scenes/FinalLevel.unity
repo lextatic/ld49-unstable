@@ -3462,6 +3462,7 @@ MonoBehaviour:
   _currentHeightBar: {fileID: 210535826}
   _victoryHeightBar: {fileID: 1624934534}
   _hightScoreBar: {fileID: 1845006078}
+  _breakForce: 900
   _victoryHeight: 100
   _initialAmmo: 20
   AllBonuses:
@@ -3486,6 +3487,9 @@ MonoBehaviour:
   _fadePanel: {fileID: 669003402}
   _bonusPiecesSound: {fileID: 11400000, guid: 3d5d69d3edfaf0145abc591376c637bf, type: 2}
   _victorySound: {fileID: 11400000, guid: 9223e26e6e698054981d265e3a040cca, type: 2}
+  _finalLevel: 1
+  _levelSceneIndex: 3
+  _nextLevelSceneIndex: 3
 --- !u!114 &2101248685
 MonoBehaviour:
   m_ObjectHideFlags: 0

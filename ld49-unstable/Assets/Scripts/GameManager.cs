@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private HeightBar _hightScoreBar;
 	[SerializeField]
+	private float _breakForce = 1000;
+	[SerializeField]
 	private float _victoryHeight;
 	[SerializeField]
 	private int _initialAmmo = 10;
@@ -44,6 +46,12 @@ public class GameManager : MonoBehaviour
 	private SimpleAudioEvent _bonusPiecesSound;
 	[SerializeField]
 	private SimpleAudioEvent _victorySound;
+	[SerializeField]
+	private bool _finalLevel = false;
+	[SerializeField]
+	private int _levelSceneIndex = 1;
+	[SerializeField]
+	private int _nextLevelSceneIndex = 2;
 
 	private int _bonusIndex;
 
@@ -106,6 +114,7 @@ public class GameManager : MonoBehaviour
 		newNode.OnJointBrake += OnConnectionBreak;
 		newNode.OnNodeDestroyed += OnNodeDestroyed;
 		_allNodesList.Add(newNode);
+		newNode.SetBreakForce(_breakForce);
 	}
 
 	private void OnOutOfAmmo()
@@ -200,7 +209,22 @@ public class GameManager : MonoBehaviour
 			_victoryAchieved = true;
 			_victorySound.Play(_audioSource);
 			_victoryPanel.SetActive(true);
+			if (!_finalLevel)
+			{
+				StartCoroutine(LoadNextLevel());
+			}
 		}
+	}
+
+	private IEnumerator LoadNextLevel()
+	{
+		yield return new WaitForSecondsRealtime(4f);
+
+		_fadePanel.DOFade(1, 0.3f).SetEase(Ease.OutSine);
+
+		yield return new WaitForSecondsRealtime(0.3f);
+
+		SceneManager.LoadScene(_nextLevelSceneIndex);
 	}
 
 	private IEnumerator LoadGame()
@@ -209,6 +233,6 @@ public class GameManager : MonoBehaviour
 
 		yield return new WaitForSecondsRealtime(0.3f);
 
-		SceneManager.LoadScene(1);
+		SceneManager.LoadScene(_levelSceneIndex);
 	}
 }
