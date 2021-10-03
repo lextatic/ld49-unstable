@@ -437,3 +437,8 @@ MonoBehaviour:
   _rod1: {fileID: 8567342354743867213}
   _rod2: {fileID: 2013059141336619195}
   _starterNodes: 0
+  _nodeSprite: {fileID: 4320278867993479020}
+  _spriteVariations:
+  - {fileID: 21300000, guid: 6f64511438699f0448811b03e4d9d26e, type: 3}
+  - {fileID: 21300000, guid: cdd49006397dda945852adf30e3fd3b0, type: 3}
+  - {fileID: 21300000, guid: 4f7ebcacf8fe52a4494eb7bc88eb701b, type: 3}

@@ -16,6 +16,12 @@ public class Node : MonoBehaviour
 	[SerializeField]
 	private bool _starterNodes = false;
 
+	[SerializeField]
+	private SpriteRenderer _nodeSprite;
+
+	[SerializeField]
+	private Sprite[] _spriteVariations;
+
 	private static float _highestForce;
 	private static float _highestTorque;
 
@@ -26,6 +32,10 @@ public class Node : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		_nodeSprite.sprite = _spriteVariations[UnityEngine.Random.Range(0, _spriteVariations.Length)];
+		_nodeSprite.flipX = UnityEngine.Random.Range(0, 2) == 0;
+		_nodeSprite.flipY = UnityEngine.Random.Range(0, 2) == 0;
+
 		if (_starterNodes) return;
 
 		var allNodes = FindObjectsOfType<Node>();
