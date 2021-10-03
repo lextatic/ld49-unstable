@@ -1,5 +1,13 @@
 using Cinemachine;
+using System;
 using UnityEngine;
+
+[Serializable]
+public struct ParallaxLayer
+{
+	public Transform LayerObject;
+	public float ParallaxRatio;
+}
 
 public class PanAndZoom : MonoBehaviour
 {
@@ -19,6 +27,8 @@ public class PanAndZoom : MonoBehaviour
 	private float _zoomInMax = 5f;
 	[SerializeField]
 	private float _zoomOutMax = 20f;
+	[SerializeField]
+	private ParallaxLayer[] _parallaxLayers;
 
 	private CinemachineInputProvider _inputProvider;
 	private CinemachineVirtualCamera _virtualCamera;
@@ -92,6 +102,27 @@ public class PanAndZoom : MonoBehaviour
 		var targetPosition = new Vector3(Mathf.Clamp(_cameraTransform.position.x + direction.x, _panMinXPosition, _panMaxXPosition),
 			Mathf.Clamp(_cameraTransform.position.y + direction.y, _panMinYPosition, _panMaxYPosition),
 			_cameraTransform.position.z);
+		var previousCameraPosition = _cameraTransform.position;
 		_cameraTransform.position = Vector3.Lerp(_cameraTransform.position, targetPosition, _panSpeed * Time.deltaTime);
+
+		foreach (ParallaxLayer layer in _parallaxLayers)
+		{
+			layer.LayerObject.position = layer.LayerObject.position + (_cameraTransform.position - previousCameraPosition) * layer.ParallaxRatio;
+		}
+	}
+
+	private void OnDrawGizmos()
+	{
+		var realMinY = _panMinYPosition - _zoomOutMax;
+		var realMaxY = _panMaxYPosition + _zoomOutMax;
+
+		var realMinX = _panMinXPosition - (_zoomOutMax * Camera.main.aspect);
+		var realMaxX = _panMaxXPosition + (_zoomOutMax * Camera.main.aspect);
+
+		Gizmos.color = Color.magenta;
+		Gizmos.DrawLine(new Vector3(realMinX, realMinY, 0), new Vector3(realMaxX, realMinY, 0));
+		Gizmos.DrawLine(new Vector3(realMinX, realMinY, 0), new Vector3(realMinX, realMaxY, 0));
+		Gizmos.DrawLine(new Vector3(realMaxX, realMaxY, 0), new Vector3(realMinX, realMaxY, 0));
+		Gizmos.DrawLine(new Vector3(realMaxX, realMaxY, 0), new Vector3(realMaxX, realMinY, 0));
 	}
 }
