@@ -1063,7 +1063,7 @@ MonoBehaviour:
   _panMinXPosition: -20
   _panMaxXPosition: 20
   _panMinYPosition: 4
-  _panMaxYPosition: 110
+  _panMaxYPosition: 200
   _zoomSpeed: 30
   _zoomInMax: 5
   _zoomOutMax: 25
