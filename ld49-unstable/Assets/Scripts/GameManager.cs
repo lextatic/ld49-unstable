@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
 		_nodeCreator.AddAmmo(_initialAmmo);
 		Time.timeScale = 1f;
 
+		_fadePanel.enabled = true;
 		_fadePanel.DOFade(0, 0.3f).SetEase(Ease.OutSine);
 	}
 
