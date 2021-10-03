@@ -41,8 +41,6 @@ public class GameManager : MonoBehaviour
 
 	private float _breakThreshold;
 
-	private int _breakCounts;
-
 	private float _maxHeightAchieved;
 
 	private List<Node> _allNodesList = new List<Node>();
@@ -75,7 +73,6 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		_bonusIndex = 0;
-		_breakCounts = 0;
 		_breakThreshold = 0;
 		_maxHeightAchieved = 0;
 		_victoryAchieved = false;
