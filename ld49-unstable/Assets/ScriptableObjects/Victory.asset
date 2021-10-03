@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Victory
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: b01d0c79a8d477f40ab0a322896f9492, type: 3}
+  - {fileID: 8300000, guid: 89ac1e04d1f7e94468bab96025b859fd, type: 3}
   volume:
     minValue: 1
     maxValue: 1

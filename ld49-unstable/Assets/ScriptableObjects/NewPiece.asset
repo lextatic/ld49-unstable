@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: NewPiece
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 5dd63daf8475a6c4dae212e9ab045509, type: 3}
-  - {fileID: 8300000, guid: 6cebac7c20bbac74594ae4ae6fb9b909, type: 3}
-  - {fileID: 8300000, guid: 7d6ce17332b3a544781fc1af596d002a, type: 3}
+  - {fileID: 8300000, guid: 37059b294683ac341a523526f6f10b1b, type: 3}
+  - {fileID: 8300000, guid: 2d56a9da2ef348a4e80e142981bdc8dd, type: 3}
+  - {fileID: 8300000, guid: 1e1208e7553c39141a90e01c7a33c7ba, type: 3}
   volume:
     minValue: 1
     maxValue: 1
