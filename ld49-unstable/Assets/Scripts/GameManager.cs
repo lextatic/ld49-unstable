@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private GameObject _gameOverPanel;
 	[SerializeField]
+	private GameObject _victoryPanel;
+	[SerializeField]
 	private Image _fadePanel;
 	[SerializeField]
 	private SimpleAudioEvent _bonusPiecesSound;
@@ -56,6 +58,7 @@ public class GameManager : MonoBehaviour
 	private float _highScore;
 
 	private bool _victoryAchieved;
+	private bool _defeated;
 
 	private AudioSource _audioSource;
 
@@ -77,9 +80,11 @@ public class GameManager : MonoBehaviour
 		_victoryHeightBar.transform.position = new Vector3(0, _victoryHeight, 0);
 		_victoryHeightBar.SetText("Victory!");
 
+		// Reset highscore
+		//PlayerPrefs.SetFloat("highScore", 0);
 		_highScore = PlayerPrefs.GetFloat("highScore", 0);
 		_hightScoreBar.transform.position = new Vector3(0, _highScore, 0);
-		_hightScoreBar.SetText($"High Score: {_highScore:0.##}");
+		_hightScoreBar.SetText($"High Score: {_highScore / 10:0.##}m");
 	}
 
 	private void Start()
@@ -88,6 +93,7 @@ public class GameManager : MonoBehaviour
 		_breakThreshold = 0;
 		_maxHeightAchieved = 0;
 		_victoryAchieved = false;
+		_defeated = false;
 		_nodeCreator.AddAmmo(_initialAmmo);
 		Time.timeScale = 1f;
 
@@ -117,8 +123,9 @@ public class GameManager : MonoBehaviour
 	{
 		_breakThreshold++;
 
-		if (_breakThreshold > _maxBreakThreshold)
+		if (!_defeated && _breakThreshold > _maxBreakThreshold)
 		{
+			_defeated = true;
 			Time.timeScale = 0.2f;
 			StartCoroutine(GameOver());
 
@@ -127,7 +134,7 @@ public class GameManager : MonoBehaviour
 
 	private IEnumerator GameOver()
 	{
-		yield return new WaitForSecondsRealtime(2f);
+		yield return new WaitForSecondsRealtime(3f);
 		Time.timeScale = 1f;
 
 		if (!_victoryAchieved)
@@ -158,14 +165,14 @@ public class GameManager : MonoBehaviour
 
 				_currentHeightBar.transform.position = new Vector3(0, _maxHeightAchieved, 0);
 
-				_currentHeightBar.SetText($"{_maxHeightAchieved:0.##}");
+				_currentHeightBar.SetText($"{_maxHeightAchieved / 10:0.##}m");
 
 				if (_maxHeightAchieved > _highScore)
 				{
 					_highScore = _maxHeightAchieved;
 					PlayerPrefs.SetFloat("highScore", _highScore);
 					_hightScoreBar.transform.position = new Vector3(0, _highScore, 0);
-					_hightScoreBar.SetText($"High Score: {_highScore:0.##}");
+					_hightScoreBar.SetText($"High Score: {_highScore / 10:0.##}m");
 				}
 			}
 		}
@@ -192,7 +199,7 @@ public class GameManager : MonoBehaviour
 		{
 			_victoryAchieved = true;
 			_victorySound.Play(_audioSource);
-			//Debug.Log("Victoly!");
+			_victoryPanel.SetActive(true);
 		}
 	}
 

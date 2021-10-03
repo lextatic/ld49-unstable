@@ -27,6 +27,34 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 1338607979
       objectReference: {fileID: 0}
+    - target: {fileID: 2288295958633219413, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251321622107315315, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.02362
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_text
+      value: Victory!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.9720145
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.27058828
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294508357
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7820230594153494178, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

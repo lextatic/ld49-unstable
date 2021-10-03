@@ -93,7 +93,7 @@ public class PanAndZoom : MonoBehaviour
 	{
 		float fov = _virtualCamera.m_Lens.OrthographicSize;
 		float target = Mathf.Clamp(fov + increment, _zoomInMax, _zoomOutMax);
-		_virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(fov, target, _zoomSpeed * Time.deltaTime);
+		_virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(fov, target, _zoomSpeed * Time.deltaTime / Time.timeScale);
 	}
 
 	public void PanScren(float x, float y)
@@ -103,7 +103,7 @@ public class PanAndZoom : MonoBehaviour
 			Mathf.Clamp(_cameraTransform.position.y + direction.y, _panMinYPosition, _panMaxYPosition),
 			_cameraTransform.position.z);
 		var previousCameraPosition = _cameraTransform.position;
-		_cameraTransform.position = Vector3.Lerp(_cameraTransform.position, targetPosition, _panSpeed * Time.deltaTime);
+		_cameraTransform.position = Vector3.Lerp(_cameraTransform.position, targetPosition, _panSpeed * Time.deltaTime / Time.timeScale);
 
 		foreach (ParallaxLayer layer in _parallaxLayers)
 		{

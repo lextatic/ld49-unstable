@@ -357,7 +357,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 8645556665488324847}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b6ad049b00f637141b230d0ade58f12b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -454,7 +454,7 @@ AudioSource:
   m_GameObject: {fileID: 8645556665488324847}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4471891314568926896, guid: 98a022b09ba3bbb41be5218cc17e29dc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

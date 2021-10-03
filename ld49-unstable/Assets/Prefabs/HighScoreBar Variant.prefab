@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1926021049066125997, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
       propertyPath: m_Color.b
-      value: 0.8343153
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1926021049066125997, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.019385792
       objectReference: {fileID: 0}
     - target: {fileID: 1926021049066125997, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
       propertyPath: m_Color.r
@@ -26,6 +26,42 @@ PrefabInstance:
     - target: {fileID: 1926021049066125997, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
       propertyPath: m_SortingLayerID
       value: 1338607979
+      objectReference: {fileID: 0}
+    - target: {fileID: 2288295958633219413, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251321622107315315, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.05396
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_text
+      value: 'High Score: 10,00m'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_margin.x
+      value: 11.432028
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.27058828
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.5111775
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4282745599
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587480383811482411, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7820230594153494178, guid: 8199dd644f5f8264cb6cf9aa2fdf3663, type: 3}
       propertyPath: m_Pivot.x

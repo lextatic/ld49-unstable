@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -141,6 +142,8 @@ public class NodeCreator : MonoBehaviour
 	{
 		_ammunition += ammoToAdd;
 		_ammoLabel.text = _ammunition.ToString();
+
+		_ammoLabel.transform.DOScale(2f, 0.4f).SetEase(Ease.InSine).SetLoops(2, LoopType.Yoyo);
 	}
 
 	private void UpdateRod(LineRenderer rod, Transform joint, float distance, float alpha)
