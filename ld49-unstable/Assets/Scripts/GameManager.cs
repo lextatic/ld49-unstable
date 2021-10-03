@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
 		_maxHeightAchieved = 0;
 		_victoryAchieved = false;
 		_nodeCreator.AddAmmo(_initialAmmo);
+		Time.timeScale = 1f;
 	}
 
 	private void OnNodeCreated(Node newNode)
