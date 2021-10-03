@@ -1,8 +1,10 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [Serializable]
 public struct HeightAndAmmo
@@ -34,6 +36,8 @@ public class GameManager : MonoBehaviour
 	private HeightBar _bonusHeightBarPrefab;
 	[SerializeField]
 	private GameObject _gameOverPanel;
+	[SerializeField]
+	private Image _fadePanel;
 
 	private int _bonusIndex;
 
@@ -78,6 +82,8 @@ public class GameManager : MonoBehaviour
 		_victoryAchieved = false;
 		_nodeCreator.AddAmmo(_initialAmmo);
 		Time.timeScale = 1f;
+
+		_fadePanel.DOFade(0, 0.3f).SetEase(Ease.OutSine);
 	}
 
 	private void OnNodeCreated(Node newNode)
@@ -125,7 +131,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.R))
 		{
-			SceneManager.LoadScene(1);
+			StartCoroutine(LoadGame());
 		}
 
 		_breakThreshold = Mathf.Max(_breakThreshold - (_breakThresholdCooldown * Time.deltaTime), 0);
@@ -176,5 +182,14 @@ public class GameManager : MonoBehaviour
 			_victoryAchieved = true;
 			//Debug.Log("Victoly!");
 		}
+	}
+
+	private IEnumerator LoadGame()
+	{
+		_fadePanel.DOFade(1, 0.3f).SetEase(Ease.OutSine);
+
+		yield return new WaitForSecondsRealtime(0.3f);
+
+		SceneManager.LoadScene(1);
 	}
 }
