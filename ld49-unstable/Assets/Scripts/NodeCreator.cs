@@ -136,6 +136,7 @@ public class NodeCreator : MonoBehaviour
 	public void AddAmmo(int ammoToAdd)
 	{
 		_ammunition += ammoToAdd;
+		_ammoLabel.text = _ammunition.ToString();
 	}
 
 	private void UpdateRod(LineRenderer rod, Transform joint, float distance, float alpha)
