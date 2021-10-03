@@ -33,6 +33,8 @@ public class NodeCreator : MonoBehaviour
 
 	private int _ammunition = 0;
 
+	public Texture2D cursor;
+
 	private void Start()
 	{
 		var starterNodes = FindObjectsOfType<Node>();
@@ -45,12 +47,8 @@ public class NodeCreator : MonoBehaviour
 			OnNodeCreated?.Invoke(node);
 		}
 
-
-	}
-
-	private void OnApplicationFocus(bool focus)
-	{
 		Cursor.visible = false;
+		Cursor.SetCursor(cursor, Vector2.zero, CursorMode.Auto);
 	}
 
 	void Update()

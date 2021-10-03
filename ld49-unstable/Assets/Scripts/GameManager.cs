@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
 
 	private float _highScore;
 
+	private bool _victoryAchieved;
+
 	void Awake()
 	{
 		_nodeCreator = GetComponent<NodeCreator>();
@@ -76,6 +78,7 @@ public class GameManager : MonoBehaviour
 		_breakCounts = 0;
 		_breakThreshold = 0;
 		_maxHeightAchieved = 0;
+		_victoryAchieved = false;
 		_nodeCreator.AddAmmo(_initialAmmo);
 	}
 
@@ -88,6 +91,7 @@ public class GameManager : MonoBehaviour
 
 	private void OnOutOfAmmo()
 	{
+		if (_victoryAchieved) return;
 		_gameOverPanel.SetActive(true);
 	}
 
@@ -111,8 +115,12 @@ public class GameManager : MonoBehaviour
 	private IEnumerator GameOver()
 	{
 		yield return new WaitForSecondsRealtime(2f);
-		_gameOverPanel.SetActive(true);
 		Time.timeScale = 1f;
+
+		if (!_victoryAchieved)
+		{
+			_gameOverPanel.SetActive(true);
+		}
 	}
 
 	void Update()
@@ -165,8 +173,9 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		if (_maxHeightAchieved > _victoryHeight)
+		if (!_victoryAchieved && _maxHeightAchieved > _victoryHeight)
 		{
+			_victoryAchieved = true;
 			Debug.Log("Victoly!");
 		}
 	}

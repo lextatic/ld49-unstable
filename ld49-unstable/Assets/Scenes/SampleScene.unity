@@ -647,7 +647,7 @@ MonoBehaviour:
   _panMaxXPosition: 20
   _panMinYPosition: 4
   _panMaxYPosition: 110
-  _zoomSpeed: 10
+  _zoomSpeed: 30
   _zoomInMax: 5
   _zoomOutMax: 50
 --- !u!114 &543246587
@@ -1944,6 +1944,7 @@ MonoBehaviour:
   _rod2: {fileID: 1863212990}
   _cursorDistanceFade: 6
   _ammoLabel: {fileID: 1199083141}
+  cursor: {fileID: 2800000, guid: 6dd26303cb4aa31499c79eba0bc3cef9, type: 3}
 --- !u!4 &2101248686
 Transform:
   m_ObjectHideFlags: 0
